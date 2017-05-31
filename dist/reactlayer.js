@@ -303,7 +303,7 @@ var ModalContainer = function (_React$Component) {
 
       var style = (0, _objectAssign2.default)({}, _modal2.default, overrideStyle);
       return _react2.default.createElement(
-        Element,
+        'div',
         others,
         children.length > 0 && _react2.default.createElement('div', { className: style.modalMask }),
         _react2.default.createElement(

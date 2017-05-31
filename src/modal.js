@@ -12,7 +12,7 @@ class ModalContainer extends React.Component{
     let {children, overrideStyle, ...others} = this.props;
     let style = assign({}, defaultStyle, overrideStyle);
     return (
-      <Element {...others}>
+      <div {...others}>
         {
           children.length > 0 && <div className={style.modalMask}/>
         }
@@ -28,7 +28,7 @@ class ModalContainer extends React.Component{
           className={style.modalContainer}>
           {children}
         </ReactCSSTransitionGroup>
-      </Element>
+      </div>
     );
   }
 }
