@@ -1,8 +1,8 @@
 {
-  "name": "reactlite",
-  "version": "1.2.19",
+  "name": "reactlayer",
+  "version": "0.1.0",
   "description": "",
-  "main": "dist/reactlite.js",
+  "main": "dist/reactlayer.js",
   "scripts": {
     "build:test": "webpack --watch",
     "start": "node server.js",
