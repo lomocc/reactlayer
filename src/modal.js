@@ -1,13 +1,13 @@
 /**
  * Created by Administrator on 2016/12/26.
  */
-import React from 'react';
-import defaultStyle from './modal.less';
-import layer from './layer';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import assign from 'object-assign';
+import React from "react";
+import defaultStyle from "./modal.less";
+import layer from "./layer";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import assign from "object-assign";
 
-class ModalContainer extends React.Component{
+class Modal extends React.Component{
   render(){
     let {children, overrideStyle, ...others} = this.props;
     let style = assign({}, defaultStyle, overrideStyle);
@@ -32,4 +32,4 @@ class ModalContainer extends React.Component{
     );
   }
 }
-export default layer.addLayer('modal', {component: ModalContainer});
+export default layer.addLayer('modal', {component: Modal});

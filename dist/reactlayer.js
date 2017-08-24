@@ -84,7 +84,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -113,123 +113,125 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var LayerComponent = (_temp2 = _class = function (_React$Component) {
-    _inherits(LayerComponent, _React$Component);
+var Layer = (_temp2 = _class = function (_React$Component) {
+  _inherits(Layer, _React$Component);
 
-    function LayerComponent() {
-        var _ref;
+  function Layer() {
+    var _ref;
 
-        var _temp, _this, _ret;
+    var _temp, _this, _ret;
 
-        _classCallCheck(this, LayerComponent);
+    _classCallCheck(this, Layer);
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
-
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = LayerComponent.__proto__ || Object.getPrototypeOf(LayerComponent)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-            children: []
-        }, _this.mount = function (element) {
-            var index = _this.state.children.indexOf(element);
-            var tempState = _this.state;
-            if (index != -1) {
-                tempState = (0, _reactAddonsUpdate2.default)(tempState, {
-                    children: {
-                        $splice: [[index, 1]]
-                    }
-                });
-            }
-            tempState = (0, _reactAddonsUpdate2.default)(tempState, {
-                children: {
-                    $push: [element]
-                }
-            });
-            _this.setState(tempState);
-            return element;
-        }, _this.unmount = function (element) {
-            var index = _this.state.children.indexOf(element);
-            if (index != -1) {
-                var tempState = (0, _reactAddonsUpdate2.default)(_this.state, {
-                    children: {
-                        $splice: [[index, 1]]
-                    }
-                });
-                _this.setState(tempState);
-            }
-            return element;
-        }, _temp), _possibleConstructorReturn(_this, _ret);
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
     }
 
-    _createClass(LayerComponent, [{
-        key: 'render',
-        value: function render() {
-            var _props = this.props,
-                Component = _props.component,
-                others = _objectWithoutProperties(_props, ['component']);
-
-            var children = this.state.children;
-
-            return _react2.default.createElement(
-                Component,
-                others,
-                _react2.default.Children.map(children, function (element, index) {
-                    return _react2.default.cloneElement(element, { key: index });
-                })
-            );
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Layer.__proto__ || Object.getPrototypeOf(Layer)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      children: []
+    }, _this.addElement = function (element) {
+      _this.setState(function (state) {
+        var index = state.children.indexOf(element);
+        if (index != -1) {
+          state = (0, _reactAddonsUpdate2.default)(state, {
+            children: {
+              $splice: [[index, 1]]
+            }
+          });
         }
-    }]);
+        state = (0, _reactAddonsUpdate2.default)(state, {
+          children: {
+            $push: [element]
+          }
+        });
+        return state;
+      });
+      return element;
+    }, _this.removeElement = function (element) {
+      _this.setState(function (state) {
+        var index = state.children.indexOf(element);
+        if (index != -1) {
+          return (0, _reactAddonsUpdate2.default)(state, {
+            children: {
+              $splice: [[index, 1]]
+            }
+          });
+        }
+        return state;
+      });
+      return element;
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
 
-    return LayerComponent;
+  _createClass(Layer, [{
+    key: "render",
+    value: function render() {
+      var _props = this.props,
+          Component = _props.component,
+          others = _objectWithoutProperties(_props, ["component"]);
+
+      var children = this.state.children;
+
+      return _react2.default.createElement(
+        Component,
+        others,
+        _react2.default.Children.map(children, function (element, index) {
+          return _react2.default.cloneElement(element, { key: index });
+        })
+      );
+    }
+  }]);
+
+  return Layer;
 }(_react2.default.Component), _class.defaultProps = {
-    component: 'div'
+  component: 'div'
 }, _temp2);
 
 
 var $layerCache = {};
 exports.default = {
-    addLayer: function addLayer() {
-        var layerId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
-        var layerProps = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-        var container = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  addLayer: function addLayer() {
+    var layerId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
+    var layerProps = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var container = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
-        if (!$layerCache[layerId]) {
-            if (!container) {
-                container = document.body.appendChild(document.createElement('div'));
-            }
-            container.setAttribute('data-reactlayer', layerId);
-            $layerCache[layerId] = _reactDom2.default.render(_react2.default.createElement(LayerComponent, layerProps), container);
-        }
-        return $layerCache[layerId];
-    },
-    getLayer: function getLayer() {
-        var layerId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
-        var layerProps = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-        return this.addLayer(layerId, layerProps);
-    },
-    removeLayer: function removeLayer() {
-        var layerId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
-
-        if ($layerCache[layerId]) {
-            var layer = $layerCache[layerId];
-            delete $layerCache[layerId];
-            var node = _reactDom2.default.findDOMNode(layer);
-            _reactDom2.default.unmountComponentAtNode(node);
-            var container = node.parentNode;
-            container.parentNode && container.parentNode.removeChild(container);
-            return layer;
-        }
-    },
-    mount: function mount(element) {
-        var layerId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
-
-        return this.getLayer(layerId).mount(element);
-    },
-    unmount: function unmount(element) {
-        var layerId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
-
-        return this.getLayer(layerId).unmount(element);
+    if (!$layerCache[layerId]) {
+      if (!container) {
+        container = document.body.appendChild(document.createElement('div'));
+      }
+      container.setAttribute('data-reactlayer', layerId);
+      $layerCache[layerId] = _reactDom2.default.render(_react2.default.createElement(Layer, layerProps), container);
     }
+    return $layerCache[layerId];
+  },
+  getLayer: function getLayer() {
+    var layerId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
+
+    return this.addLayer(layerId);
+  },
+  removeLayer: function removeLayer() {
+    var layerId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
+
+    if ($layerCache[layerId]) {
+      var layer = $layerCache[layerId];
+      delete $layerCache[layerId];
+      var node = _reactDom2.default.findDOMNode(layer);
+      _reactDom2.default.unmountComponentAtNode(node);
+      var container = node.parentNode;
+      container.parentNode && container.parentNode.removeChild(container);
+      return layer;
+    }
+  },
+  addElement: function addElement(element) {
+    var layerId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
+
+    return this.getLayer(layerId).addElement(element);
+  },
+  removeElement: function removeElement(element) {
+    var layerId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
+
+    return this.getLayer(layerId).removeElement(element);
+  }
 };
 
 /***/ }),
@@ -284,28 +286,28 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
 
-var ModalContainer = function (_React$Component) {
-  _inherits(ModalContainer, _React$Component);
+var Modal = function (_React$Component) {
+  _inherits(Modal, _React$Component);
 
-  function ModalContainer() {
-    _classCallCheck(this, ModalContainer);
+  function Modal() {
+    _classCallCheck(this, Modal);
 
-    return _possibleConstructorReturn(this, (ModalContainer.__proto__ || Object.getPrototypeOf(ModalContainer)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).apply(this, arguments));
   }
 
-  _createClass(ModalContainer, [{
-    key: 'render',
+  _createClass(Modal, [{
+    key: "render",
     value: function render() {
       var _props = this.props,
           children = _props.children,
           overrideStyle = _props.overrideStyle,
-          others = _objectWithoutProperties(_props, ['children', 'overrideStyle']);
+          others = _objectWithoutProperties(_props, ["children", "overrideStyle"]);
 
       var style = (0, _objectAssign2.default)({}, _modal2.default, overrideStyle);
       return _react2.default.createElement(
-        'div',
+        "div",
         others,
-        children.length > 0 && _react2.default.createElement('div', { className: style.modalMask }),
+        children.length > 0 && _react2.default.createElement("div", { className: style.modalMask }),
         _react2.default.createElement(
           _reactAddonsCssTransitionGroup2.default,
           {
@@ -324,10 +326,10 @@ var ModalContainer = function (_React$Component) {
     }
   }]);
 
-  return ModalContainer;
+  return Modal;
 }(_react2.default.Component);
 
-exports.default = _layer2.default.addLayer('modal', { component: ModalContainer });
+exports.default = _layer2.default.addLayer('modal', { component: Modal });
 
 /***/ }),
 /* 3 */
@@ -350,8 +352,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Created by vincent on 2016/10/13.
  */
 _modal2.default.layer = _layer2.default;
-// import RecycleList from './RecycleList';
-
+_modal2.default.modal = _modal2.default;
 
 module.exports = _modal2.default;
 
