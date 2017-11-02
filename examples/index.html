@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <!--<script src="../node_modules/react/umd/react.development.js" type="text/javascript"></script>-->
+  <!--<script src="../node_modules/react-dom/umd/react-dom.development.js" type="text/javascript"></script>-->
+  <script src="../dist/reactlayer.js" type="text/javascript"></script>
+</head>
+<body>
+<script>
+  layer.addElement(React.createElement('div', {style: {color: 'red', fontSize: 30}}, React.createElement('div', {}, 'adasdd')));
+  layer.addElement(React.createElement('div', {style: {color: 'blue', fontSize: 70}}, React.createElement('div', {}, 'adasdd')), "test2");
+  layer.addElement(React.createElement('div', {style: {color: 'blue', fontSize: 70}}, React.createElement('div', {}, 'adasdd')), "test2");
+  layer.removeElementAt(0, "test2");
+  layer.getNumElements();
+</script>
+</body>
+</html>

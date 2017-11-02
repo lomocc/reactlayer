@@ -1,14 +1,14 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import update from "react-addons-update";
+import Modal from "./Modal";
 
 class Layer extends React.Component{
-  static defaultProps = {
-    component: 'div'
-  };
   state = {
     children:[]
   };
+  getNumElements(){
+    return this.state.children.length;
+  }
   addElement = (element)=>{
     this.setState((state)=>{
       let index = state.children.indexOf(element);
@@ -28,6 +28,21 @@ class Layer extends React.Component{
     });
     return element;
   };
+  getElementAt(index) {
+    let children = this.state.children;
+    if (children.length == 0) {
+      return null;
+    }
+    return children[index];
+  }
+  getElementIndex(element) {
+    let children = this.state.children;
+    for (let i = 0; i < children.length; i++) {
+      if (children[i] == element)
+        return i;
+    }
+    return -1;
+  }
   removeElement = (element)=>{
     this.setState((state)=>{
       let index = state.children.indexOf(element);
@@ -42,48 +57,29 @@ class Layer extends React.Component{
     });
     return element;
   };
+  removeElementAt(index) {
+    let child = this.getElementAt(index);
+    return this.removeElement(child);
+  }
+  removeElements(beginIndex=0, endIndex=-1) {
+    let children = this.state.children;
+    if(endIndex == -1 || endIndex > children.length - 1){
+      endIndex = children.length - 1;
+    }
+    let elements = [];
+    for (let i = endIndex; i >= beginIndex; i--) {
+      elements.push(this.removeElement(children[i]));
+    }
+    return elements;
+  }
   render() {
-    let {component:Component, ...others} = this.props;
     let {children} = this.state;
     return (
-      <Component {...others}>
+      <Modal {...this.props}>
         {
           React.Children.map(children, (element, index)=>React.cloneElement(element, {key:index}))
         }
-      </Component>);
+      </Modal>);
   }
 }
-
-let $layerCache = {};
-export default {
-  addLayer(layerId = 'default', layerProps=null, container=null){
-    if(!$layerCache[layerId]){
-      if(!container){
-        container = document.body.appendChild(document.createElement('div'));
-      }
-      container.setAttribute('data-reactlayer', layerId);
-      $layerCache[layerId] = ReactDOM.render(React.createElement(Layer, layerProps), container);
-    }
-    return $layerCache[layerId];
-  },
-  getLayer(layerId = 'default'){
-    return this.addLayer(layerId);
-  },
-  removeLayer(layerId = 'default'){
-    if($layerCache[layerId]){
-      let layer = $layerCache[layerId];
-      delete $layerCache[layerId];
-      let node = ReactDOM.findDOMNode(layer);
-      ReactDOM.unmountComponentAtNode(node);
-      let container = node.parentNode;
-      container.parentNode && container.parentNode.removeChild(container);
-      return layer;
-    }
-  },
-  addElement(element, layerId = 'default'){
-    return this.getLayer(layerId).addElement(element);
-  },
-  removeElement(element, layerId = 'default'){
-    return this.getLayer(layerId).removeElement(element);
-  }
-};
+module.exports = Layer;

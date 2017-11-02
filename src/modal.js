@@ -2,34 +2,54 @@
  * Created by Administrator on 2016/12/26.
  */
 import React from "react";
-import defaultStyle from "./modal.less";
-import layer from "./layer";
-import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+// import defaultStyle from "./modal.less";
+// import layer from "./layer";
 import assign from "object-assign";
 
 class Modal extends React.Component{
+  static defaultProps = {
+    component: 'div',
+    componentProps: {},
+    maskComponent: 'div',
+    maskComponentProps: {}
+  };
   render(){
-    let {children, overrideStyle, ...others} = this.props;
-    let style = assign({}, defaultStyle, overrideStyle);
-    return (
-      <div {...others}>
-        {
-          children.length > 0 && <div className={style.modalMask}/>
-        }
-        <ReactCSSTransitionGroup
-          transitionName={{
-                    enter: style.modalEnter,
-                    enterActive: style.modalEnterActive,
-                    leave: style.modalLeave,
-                    leaveActive: style.modalLeaveActive
-                }}
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}
-          className={style.modalContainer}>
+    let {children, component:Component, componentProps, maskComponent:MaskComponent, maskComponentProps, style, ...others} = this.props;
+    let maskStyle = assign({
+      pointerEvents: 'none',
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.4)'
+    }, maskComponentProps.style);
+
+    let componentStyle = assign({
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0
+    }, componentProps.style);
+
+    style = assign({
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0
+    }, style);
+    let hasChildren = children.length > 0;
+    return hasChildren && (
+      <div style={style} {...others}>
+        <MaskComponent {...maskComponentProps} style={maskStyle}/>
+        <Component {...componentProps} style={componentStyle}>
           {children}
-        </ReactCSSTransitionGroup>
+        </Component>
       </div>
     );
   }
 }
-export default layer.addLayer('modal', {component: Modal});
+module.exports = Modal;
+// export default layer.addLayer('modal', {component: Modal});
