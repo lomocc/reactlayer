@@ -8,11 +8,11 @@ npm install reactlayer -S
 ```
 ## 使用方法
 ``` javascript
-import {modal, layer} from 'reactlayer';
-// new element with modal
-modal.addElement(<div className="popup">popup</div>);
+import reactlayer from 'reactlayer';
+// new element with default
+reactlayer.addElement(<div className="popup">popup</div>);
 
-// new element with layer
-let newLayer = layer.addLayer('tooltipLayer', {component: 'div'});
+// new element with tooltipLayer
+let newLayer = reactlayer.addLayer('tooltipLayer');
 newLayer.addElement(<div className="popup">popup</div>);
 ```
